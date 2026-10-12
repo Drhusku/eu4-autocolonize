@@ -1,0 +1,32 @@
+country_decisions = {
+
+	autocolonize_decision = {
+		# 入口决议：启用自动殖民（potential 含 ai = no）
+		potential = {
+			ai = no
+			NOT = { has_country_flag = autocolonize_active }
+		}
+		allow = { }
+		effect = {
+			set_country_flag = autocolonize_active
+			country_event = { id = autocolonize.1 }
+		}
+		major = yes
+		ai_will_do = { factor = 0 }
+		option = { name = autocolonize_decision_title }
+	}
+
+	autocolonize_decision_stop = {
+		# 关闭决议：彻底停用自动殖民（potential 含 ai = no）
+		potential = {
+			ai = no
+			has_country_flag = autocolonize_active
+		}
+		allow = { }
+		effect = { autocolonize_reset_all }
+		major = yes
+		ai_will_do = { factor = 0 }
+		option = { name = autocolonize_decision_stop_title }
+	}
+
+}

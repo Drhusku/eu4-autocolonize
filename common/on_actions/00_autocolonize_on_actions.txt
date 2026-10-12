@@ -1,0 +1,6 @@
+# on_action 挂载：on_yearly_pulse 触发 autocolonize.5（EU4 1.36+ on_actions 同名块与原版合并，不覆盖原版 events）
+on_yearly_pulse = {
+	events = {
+		autocolonize.5
+	}
+}

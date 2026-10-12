@@ -1,0 +1,5 @@
+﻿name = "Auto Colonize 自动殖民"
+path = "mod/autocolonize"
+supported_version = "v1.37.*"
+version = "1.0"
+picture = "thumbnail.png"

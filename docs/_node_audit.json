@@ -1,0 +1,360 @@
+{
+ "nodes": {
+  "african_great_lakes": {
+   "location": 4064,
+   "unowned": 17
+  },
+  "kongo": {
+   "location": 4097,
+   "unowned": 2
+  },
+  "zambezi": {
+   "location": 1191,
+   "unowned": 10
+  },
+  "patagonia": {
+   "location": 2868,
+   "unowned": 19
+  },
+  "amazonas_node": {
+   "location": 2935,
+   "unowned": 35
+  },
+  "rio_grande": {
+   "location": 2499,
+   "unowned": 27
+  },
+  "james_bay": {
+   "location": 1486,
+   "unowned": 44
+  },
+  "california": {
+   "location": 2021,
+   "unowned": 63
+  },
+  "girin": {
+   "location": 730,
+   "unowned": 19
+  },
+  "mississippi_river": {
+   "location": 1507,
+   "unowned": 45
+  },
+  "ohio": {
+   "location": 2526,
+   "unowned": 20
+  },
+  "mexico": {
+   "location": 1551,
+   "unowned": 5
+  },
+  "lhasa": {
+   "location": 677,
+   "unowned": 1
+  },
+  "chengdu": {
+   "location": 679,
+   "unowned": 0
+  },
+  "burma": {
+   "location": 584,
+   "unowned": 0
+  },
+  "gulf_of_siam": {
+   "location": 1365,
+   "unowned": 1
+  },
+  "canton": {
+   "location": 1371,
+   "unowned": 4
+  },
+  "philippines": {
+   "location": 1397,
+   "unowned": 11
+  },
+  "cuiaba": {
+   "location": 800,
+   "unowned": 27
+  },
+  "lima": {
+   "location": 809,
+   "unowned": 9
+  },
+  "polynesia_node": {
+   "location": 1997,
+   "unowned": 19
+  },
+  "australia": {
+   "location": 1411,
+   "unowned": 37
+  },
+  "nippon": {
+   "location": 1376,
+   "unowned": 1
+  },
+  "hangzhou": {
+   "location": 684,
+   "unowned": 1
+  },
+  "xian": {
+   "location": 700,
+   "unowned": 0
+  },
+  "beijing": {
+   "location": 4233,
+   "unowned": 1
+  },
+  "the_moluccas": {
+   "location": 1357,
+   "unowned": 30
+  },
+  "siberia": {
+   "location": 1064,
+   "unowned": 30
+  },
+  "yumen": {
+   "location": 707,
+   "unowned": 3
+  },
+  "malacca": {
+   "location": 1361,
+   "unowned": 6
+  },
+  "ganges_delta": {
+   "location": 1343,
+   "unowned": 1
+  },
+  "doab": {
+   "location": 524,
+   "unowned": 0
+  },
+  "lahore": {
+   "location": 507,
+   "unowned": 3
+  },
+  "deccan": {
+   "location": 1948,
+   "unowned": 0
+  },
+  "comorin_cape": {
+   "location": 1340,
+   "unowned": 5
+  },
+  "gujarat": {
+   "location": 504,
+   "unowned": 0
+  },
+  "katsina": {
+   "location": 1149,
+   "unowned": 4
+  },
+  "ethiopia": {
+   "location": 2772,
+   "unowned": 9
+  },
+  "gulf_of_aden": {
+   "location": 4346,
+   "unowned": 7
+  },
+  "hormuz": {
+   "location": 1334,
+   "unowned": 3
+  },
+  "zanzibar": {
+   "location": 1448,
+   "unowned": 6
+  },
+  "cape_of_good_hope": {
+   "location": 1460,
+   "unowned": 20
+  },
+  "basra": {
+   "location": 1335,
+   "unowned": 3
+  },
+  "samarkand": {
+   "location": 454,
+   "unowned": 0
+  },
+  "persia": {
+   "location": 4341,
+   "unowned": 4
+  },
+  "aleppo": {
+   "location": 377,
+   "unowned": 0
+  },
+  "alexandria": {
+   "location": 358,
+   "unowned": 2
+  },
+  "astrakhan": {
+   "location": 464,
+   "unowned": 0
+  },
+  "crimea": {
+   "location": 1322,
+   "unowned": 2
+  },
+  "constantinople": {
+   "location": 1320,
+   "unowned": 2
+  },
+  "kiev": {
+   "location": 280,
+   "unowned": 0
+  },
+  "kazan": {
+   "location": 1082,
+   "unowned": 0
+  },
+  "novgorod": {
+   "location": 33,
+   "unowned": 0
+  },
+  "laplata": {
+   "location": 1536,
+   "unowned": 32
+  },
+  "brazil": {
+   "location": 1531,
+   "unowned": 41
+  },
+  "timbuktu": {
+   "location": 1132,
+   "unowned": 7
+  },
+  "ivory_coast": {
+   "location": 1466,
+   "unowned": 22
+  },
+  "tunis": {
+   "location": 341,
+   "unowned": 1
+  },
+  "ragusa": {
+   "location": 137,
+   "unowned": 0
+  },
+  "safi": {
+   "location": 1110,
+   "unowned": 0
+  },
+  "pest": {
+   "location": 153,
+   "unowned": 0
+  },
+  "krakow": {
+   "location": 262,
+   "unowned": 0
+  },
+  "wien": {
+   "location": 134,
+   "unowned": 0
+  },
+  "saxony": {
+   "location": 61,
+   "unowned": 0
+  },
+  "baltic_sea": {
+   "location": 1926,
+   "unowned": 1
+  },
+  "rheinland": {
+   "location": 1876,
+   "unowned": 0
+  },
+  "panama": {
+   "location": 835,
+   "unowned": 37
+  },
+  "carribean_trade": {
+   "location": 1516,
+   "unowned": 61
+  },
+  "chesapeake_bay": {
+   "location": 1500,
+   "unowned": 17
+  },
+  "st_lawrence": {
+   "location": 1490,
+   "unowned": 39
+  },
+  "white_sea": {
+   "location": 1652,
+   "unowned": 3
+  },
+  "north_sea": {
+   "location": 1975,
+   "unowned": 8
+  },
+  "lubeck": {
+   "location": 45,
+   "unowned": 0
+  },
+  "bordeaux": {
+   "location": 1276,
+   "unowned": 1
+  },
+  "sevilla": {
+   "location": 1293,
+   "unowned": 1
+  },
+  "champagne": {
+   "location": 186,
+   "unowned": 0
+  },
+  "valencia": {
+   "location": 1295,
+   "unowned": 1
+  },
+  "genua": {
+   "location": 1298,
+   "unowned": 1
+  },
+  "venice": {
+   "location": 1308,
+   "unowned": 1
+  },
+  "english_channel": {
+   "location": 1269,
+   "unowned": 3
+  }
+ },
+ "t2_kept": [
+  "african_great_lakes",
+  "amazonas_node",
+  "australia",
+  "brazil",
+  "california",
+  "cape_of_good_hope",
+  "carribean_trade",
+  "chesapeake_bay",
+  "cuiaba",
+  "gulf_of_aden",
+  "ivory_coast",
+  "james_bay",
+  "laplata",
+  "lima",
+  "malacca",
+  "mexico",
+  "mississippi_river",
+  "ohio",
+  "panama",
+  "patagonia",
+  "polynesia_node",
+  "rio_grande",
+  "st_lawrence",
+  "the_moluccas",
+  "zambezi"
+ ],
+ "user_named": [
+  "australia",
+  "malacca",
+  "gulf_of_siam",
+  "canton",
+  "hangzhou",
+  "mexico",
+  "panama"
+ ]
+}

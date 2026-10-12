@@ -1,0 +1,402 @@
+{
+ "california": {
+  "location": 2021,
+  "members": 74,
+  "unowned_1444": 63
+ },
+ "carribean_trade": {
+  "location": 1516,
+  "members": 62,
+  "unowned_1444": 61
+ },
+ "mississippi_river": {
+  "location": 1507,
+  "members": 67,
+  "unowned_1444": 45
+ },
+ "james_bay": {
+  "location": 1486,
+  "members": 53,
+  "unowned_1444": 44
+ },
+ "brazil": {
+  "location": 1531,
+  "members": 44,
+  "unowned_1444": 41
+ },
+ "st_lawrence": {
+  "location": 1490,
+  "members": 53,
+  "unowned_1444": 39
+ },
+ "australia": {
+  "location": 1411,
+  "members": 50,
+  "unowned_1444": 37
+ },
+ "panama": {
+  "location": 835,
+  "members": 43,
+  "unowned_1444": 37
+ },
+ "amazonas_node": {
+  "location": 2935,
+  "members": 37,
+  "unowned_1444": 35
+ },
+ "laplata": {
+  "location": 1536,
+  "members": 34,
+  "unowned_1444": 32
+ },
+ "the_moluccas": {
+  "location": 1357,
+  "members": 58,
+  "unowned_1444": 30
+ },
+ "siberia": {
+  "location": 1064,
+  "members": 55,
+  "unowned_1444": 30
+ },
+ "rio_grande": {
+  "location": 2499,
+  "members": 42,
+  "unowned_1444": 27
+ },
+ "cuiaba": {
+  "location": 800,
+  "members": 41,
+  "unowned_1444": 27
+ },
+ "ivory_coast": {
+  "location": 1466,
+  "members": 40,
+  "unowned_1444": 22
+ },
+ "ohio": {
+  "location": 2526,
+  "members": 67,
+  "unowned_1444": 20
+ },
+ "cape_of_good_hope": {
+  "location": 1460,
+  "members": 20,
+  "unowned_1444": 20
+ },
+ "patagonia": {
+  "location": 2868,
+  "members": 20,
+  "unowned_1444": 19
+ },
+ "girin": {
+  "location": 730,
+  "members": 77,
+  "unowned_1444": 19
+ },
+ "polynesia_node": {
+  "location": 1997,
+  "members": 35,
+  "unowned_1444": 18
+ },
+ "african_great_lakes": {
+  "location": 4064,
+  "members": 30,
+  "unowned_1444": 17
+ },
+ "chesapeake_bay": {
+  "location": 1500,
+  "members": 56,
+  "unowned_1444": 17
+ },
+ "philippines": {
+  "location": 1397,
+  "members": 24,
+  "unowned_1444": 11
+ },
+ "zambezi": {
+  "location": 1191,
+  "members": 29,
+  "unowned_1444": 10
+ },
+ "lima": {
+  "location": 809,
+  "members": 32,
+  "unowned_1444": 9
+ },
+ "ethiopia": {
+  "location": 2772,
+  "members": 53,
+  "unowned_1444": 9
+ },
+ "north_sea": {
+  "location": 1975,
+  "members": 49,
+  "unowned_1444": 8
+ },
+ "gulf_of_aden": {
+  "location": 4346,
+  "members": 55,
+  "unowned_1444": 7
+ },
+ "timbuktu": {
+  "location": 1132,
+  "members": 54,
+  "unowned_1444": 7
+ },
+ "malacca": {
+  "location": 1361,
+  "members": 69,
+  "unowned_1444": 6
+ },
+ "zanzibar": {
+  "location": 1448,
+  "members": 37,
+  "unowned_1444": 6
+ },
+ "mexico": {
+  "location": 1551,
+  "members": 77,
+  "unowned_1444": 5
+ },
+ "comorin_cape": {
+  "location": 1340,
+  "members": 55,
+  "unowned_1444": 5
+ },
+ "canton": {
+  "location": 1371,
+  "members": 37,
+  "unowned_1444": 4
+ },
+ "katsina": {
+  "location": 1149,
+  "members": 37,
+  "unowned_1444": 4
+ },
+ "persia": {
+  "location": 4341,
+  "members": 51,
+  "unowned_1444": 4
+ },
+ "yumen": {
+  "location": 707,
+  "members": 51,
+  "unowned_1444": 3
+ },
+ "lahore": {
+  "location": 507,
+  "members": 39,
+  "unowned_1444": 3
+ },
+ "hormuz": {
+  "location": 1334,
+  "members": 33,
+  "unowned_1444": 3
+ },
+ "basra": {
+  "location": 1335,
+  "members": 41,
+  "unowned_1444": 3
+ },
+ "white_sea": {
+  "location": 1652,
+  "members": 22,
+  "unowned_1444": 3
+ },
+ "english_channel": {
+  "location": 1269,
+  "members": 55,
+  "unowned_1444": 3
+ },
+ "kongo": {
+  "location": 4097,
+  "members": 32,
+  "unowned_1444": 2
+ },
+ "alexandria": {
+  "location": 358,
+  "members": 49,
+  "unowned_1444": 2
+ },
+ "crimea": {
+  "location": 1322,
+  "members": 37,
+  "unowned_1444": 2
+ },
+ "constantinople": {
+  "location": 1320,
+  "members": 44,
+  "unowned_1444": 2
+ },
+ "lhasa": {
+  "location": 677,
+  "members": 25,
+  "unowned_1444": 1
+ },
+ "gulf_of_siam": {
+  "location": 1365,
+  "members": 61,
+  "unowned_1444": 1
+ },
+ "nippon": {
+  "location": 1376,
+  "members": 69,
+  "unowned_1444": 1
+ },
+ "hangzhou": {
+  "location": 684,
+  "members": 27,
+  "unowned_1444": 1
+ },
+ "beijing": {
+  "location": 4233,
+  "members": 29,
+  "unowned_1444": 1
+ },
+ "ganges_delta": {
+  "location": 1343,
+  "members": 48,
+  "unowned_1444": 1
+ },
+ "tunis": {
+  "location": 341,
+  "members": 27,
+  "unowned_1444": 1
+ },
+ "baltic_sea": {
+  "location": 1926,
+  "members": 45,
+  "unowned_1444": 1
+ },
+ "bordeaux": {
+  "location": 1276,
+  "members": 29,
+  "unowned_1444": 1
+ },
+ "sevilla": {
+  "location": 1293,
+  "members": 53,
+  "unowned_1444": 1
+ },
+ "valencia": {
+  "location": 1295,
+  "members": 22,
+  "unowned_1444": 1
+ },
+ "genua": {
+  "location": 1298,
+  "members": 42,
+  "unowned_1444": 1
+ },
+ "venice": {
+  "location": 1308,
+  "members": 26,
+  "unowned_1444": 1
+ },
+ "chengdu": {
+  "location": 679,
+  "members": 20,
+  "unowned_1444": 0
+ },
+ "burma": {
+  "location": 584,
+  "members": 40,
+  "unowned_1444": 0
+ },
+ "xian": {
+  "location": 700,
+  "members": 25,
+  "unowned_1444": 0
+ },
+ "doab": {
+  "location": 524,
+  "members": 43,
+  "unowned_1444": 0
+ },
+ "deccan": {
+  "location": 1948,
+  "members": 40,
+  "unowned_1444": 0
+ },
+ "gujarat": {
+  "location": 504,
+  "members": 41,
+  "unowned_1444": 0
+ },
+ "samarkand": {
+  "location": 454,
+  "members": 52,
+  "unowned_1444": 0
+ },
+ "aleppo": {
+  "location": 377,
+  "members": 32,
+  "unowned_1444": 0
+ },
+ "astrakhan": {
+  "location": 464,
+  "members": 29,
+  "unowned_1444": 0
+ },
+ "kiev": {
+  "location": 280,
+  "members": 46,
+  "unowned_1444": 0
+ },
+ "kazan": {
+  "location": 1082,
+  "members": 22,
+  "unowned_1444": 0
+ },
+ "novgorod": {
+  "location": 33,
+  "members": 40,
+  "unowned_1444": 0
+ },
+ "ragusa": {
+  "location": 137,
+  "members": 40,
+  "unowned_1444": 0
+ },
+ "safi": {
+  "location": 1110,
+  "members": 27,
+  "unowned_1444": 0
+ },
+ "pest": {
+  "location": 153,
+  "members": 30,
+  "unowned_1444": 0
+ },
+ "krakow": {
+  "location": 262,
+  "members": 31,
+  "unowned_1444": 0
+ },
+ "wien": {
+  "location": 134,
+  "members": 35,
+  "unowned_1444": 0
+ },
+ "saxony": {
+  "location": 61,
+  "members": 35,
+  "unowned_1444": 0
+ },
+ "rheinland": {
+  "location": 1876,
+  "members": 42,
+  "unowned_1444": 0
+ },
+ "lubeck": {
+  "location": 45,
+  "members": 43,
+  "unowned_1444": 0
+ },
+ "champagne": {
+  "location": 186,
+  "members": 33,
+  "unowned_1444": 0
+ }
+}

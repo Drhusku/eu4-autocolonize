@@ -1,0 +1,35 @@
+EU4 Auto Colonize — 安装副本哈希比对记录
+生成时间: 2026-10-12 10:23:25
+源目录:   E:\AI\eu4_autocolonize
+安装目录: C:\Users\Husky\Documents\Paradox Interactive\Europa Universalis IV\mod\autocolonize
+比对算法: SHA-256
+==============================================================================
+MATCH    events/autocolonize_events.txt
+    src: 73977f0371c7e164f6ad621887aa69987af6ebd00967e06dc72e0d78bb950bb6
+    dst: 73977f0371c7e164f6ad621887aa69987af6ebd00967e06dc72e0d78bb950bb6
+MATCH    decisions/autocolonize_decisions.txt
+    src: cf48a826af37e0869cb8e2579782a50f00d0f1221ec2f2e7be398392b24920b8
+    dst: cf48a826af37e0869cb8e2579782a50f00d0f1221ec2f2e7be398392b24920b8
+MATCH    common/on_actions/00_autocolonize_on_actions.txt
+    src: 65228ef9dd50a8c32d6530b4fb3f318f4d9ed351bd88877c1f975c9bc0661da8
+    dst: 65228ef9dd50a8c32d6530b4fb3f318f4d9ed351bd88877c1f975c9bc0661da8
+MATCH    common/scripted_effects/autocolonize_effects.txt
+    src: f11c30fa924f26b5c258e1e7e291c9deb7247e204a7289a9ecd48ca2f4e19b05
+    dst: f11c30fa924f26b5c258e1e7e291c9deb7247e204a7289a9ecd48ca2f4e19b05
+MATCH    common/scripted_triggers/autocolonize_triggers.txt
+    src: 4db45c420a31fa0b93bc4280335134213ceaa1a3a2c6271a1f8ee25333bd59a5
+    dst: 4db45c420a31fa0b93bc4280335134213ceaa1a3a2c6271a1f8ee25333bd59a5
+MATCH    localisation/autocolonize_l_english.yml
+    src: 09f77f642f3490d68ac1b5084c5b3e7c4ab5d19e76ed53d8257240ccd065d0be
+    dst: 09f77f642f3490d68ac1b5084c5b3e7c4ab5d19e76ed53d8257240ccd065d0be
+MATCH    localisation/autocolonize_l_simp_chinese.yml
+    src: 09f77f642f3490d68ac1b5084c5b3e7c4ab5d19e76ed53d8257240ccd065d0be
+    dst: 09f77f642f3490d68ac1b5084c5b3e7c4ab5d19e76ed53d8257240ccd065d0be
+MATCH    descriptor.mod
+    src: 23c2d979889d926e4a4701ecd911bcf4c94f3063a174a5a4d6b2fa6771b4631c
+    dst: 23c2d979889d926e4a4701ecd911bcf4c94f3063a174a5a4d6b2fa6771b4631c
+MATCH    thumbnail.png
+    src: 9777c2c10f5bcb46b2581352ce5e8871985eeb67e4ecb581609d86bd30af979a
+    dst: 9777c2c10f5bcb46b2581352ce5e8871985eeb67e4ecb581609d86bd30af979a
+==============================================================================
+结论: 全部一致，安装副本与源码同步

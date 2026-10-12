@@ -1,0 +1,14 @@
+{
+  "selected": "user_final (用户自制)",
+  "note": "最终图标由用户提供：在 Captain 生成的 v4_a 基础上加了绿色「自动殖民」标题，殖民官表情改为笑哭、玩家为闭眼吐舌。",
+  "model": "cogview-3-flash / cogview-4",
+  "prompt_file": "candidates/prompts_round7.json",
+  "outputs": {
+    "thumbnail.png": "640x640 mod 列表缩略图（= 用户版本）",
+    "gfx/interface/autocolonize_icon_64.png": "游戏内图标 64px",
+    "gfx/interface/autocolonize_icon_32.png": "游戏内图标 32px",
+    "artwork/final/icon_user_final_640.png": "用户版本存档",
+    "artwork/final/icon_readme_512.png": "README 配图",
+    "artwork/final/thumbnail_captain_backup.png": "Captain 初版缩略图备份"
+  }
+}

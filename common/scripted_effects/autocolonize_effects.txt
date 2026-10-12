@@ -1,0 +1,1117 @@
+# scripted effects 定义 — 由 autocolonize mod T3 实现（标识符与 DESIGN §4 一致，禁改）
+# T11-repair: 每个目标块插入 development = 5 档（>=10 → >=5 → 兜底），细化发展度排序
+
+autocolonize_clear_target = {
+	# 清除全部 autocolonize_target_* flag（设置新目标前必须先调用）
+	clr_country_flag = autocolonize_target_india_superregion
+	clr_country_flag = autocolonize_target_east_indies_superregion
+	clr_country_flag = autocolonize_target_oceania_superregion
+	clr_country_flag = autocolonize_target_china_superregion
+	clr_country_flag = autocolonize_target_far_east_superregion
+	clr_country_flag = autocolonize_target_tartary_superregion
+	clr_country_flag = autocolonize_target_persia_superregion
+	clr_country_flag = autocolonize_target_south_america_superregion
+	clr_country_flag = autocolonize_target_central_america_superregion
+	clr_country_flag = autocolonize_target_andes_superregion
+	clr_country_flag = autocolonize_target_north_america_superregion
+	clr_country_flag = autocolonize_target_near_east_superregion
+	clr_country_flag = autocolonize_target_eastern_europe_superregion
+	clr_country_flag = autocolonize_target_europe_superregion
+	clr_country_flag = autocolonize_target_africa_superregion
+	clr_country_flag = autocolonize_target_southern_africa_superregion
+	clr_country_flag = autocolonize_target_brazil
+	clr_country_flag = autocolonize_target_laplata
+	clr_country_flag = autocolonize_target_patagonia
+	clr_country_flag = autocolonize_target_amazonas_node
+	clr_country_flag = autocolonize_target_cuiaba
+	clr_country_flag = autocolonize_target_lima
+	clr_country_flag = autocolonize_target_mexico
+	clr_country_flag = autocolonize_target_california
+	clr_country_flag = autocolonize_target_rio_grande
+	clr_country_flag = autocolonize_target_ohio
+	clr_country_flag = autocolonize_target_mississippi_river
+	clr_country_flag = autocolonize_target_chesapeake_bay
+	clr_country_flag = autocolonize_target_carribean_trade
+	clr_country_flag = autocolonize_target_panama
+	clr_country_flag = autocolonize_target_st_lawrence
+	clr_country_flag = autocolonize_target_james_bay
+	clr_country_flag = autocolonize_target_australia
+	clr_country_flag = autocolonize_target_polynesia_node
+	clr_country_flag = autocolonize_target_cape_of_good_hope
+	clr_country_flag = autocolonize_target_african_great_lakes
+	clr_country_flag = autocolonize_target_ivory_coast
+	clr_country_flag = autocolonize_target_zambezi
+	clr_country_flag = autocolonize_target_gulf_of_aden
+	clr_country_flag = autocolonize_target_the_moluccas
+	clr_country_flag = autocolonize_target_malacca
+	clr_country_flag = autocolonize_target_siberia
+	clr_country_flag = autocolonize_target_girin
+	clr_country_flag = autocolonize_target_philippines
+	clr_country_flag = autocolonize_target_canton
+	clr_country_flag = autocolonize_target_hangzhou
+	clr_country_flag = autocolonize_target_gulf_of_siam
+}
+
+autocolonize_reset_all = {
+	# 完全关闭自动殖民：清除目标 + 全部 autocolonize_* flag
+	autocolonize_clear_target
+	clr_country_flag = autocolonize_active
+	clr_country_flag = autocolonize_mode_continent
+	clr_country_flag = autocolonize_mode_trade_node
+	clr_country_flag = autocolonize_sort_distance
+	clr_country_flag = autocolonize_sort_development
+}
+
+autocolonize_run = {
+	# 年度执行总入口（autocolonize.5 的 body）：按当前 mode 分派
+	if = {
+		limit = { has_country_flag = autocolonize_mode_continent }
+		autocolonize_colonize_superregion
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_mode_trade_node }
+		autocolonize_colonize_trade_node
+	}
+}
+
+autocolonize_colonize_superregion = {
+	# 按当前 superregion 目标殖民一个可殖民省份（country scope，superregion=过滤）
+	if = {
+		limit = { has_country_flag = autocolonize_target_india_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = india_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = india_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = india_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = india_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = india_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = india_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_east_indies_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = east_indies_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = east_indies_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = east_indies_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = east_indies_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = east_indies_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = east_indies_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_oceania_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = oceania_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = oceania_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = oceania_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = oceania_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = oceania_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = oceania_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_china_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = china_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = china_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = china_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = china_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = china_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = china_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_far_east_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = far_east_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = far_east_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = far_east_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = far_east_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = far_east_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = far_east_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_tartary_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = tartary_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = tartary_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = tartary_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = tartary_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = tartary_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = tartary_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_persia_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = persia_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = persia_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = persia_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = persia_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = persia_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = persia_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_south_america_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = south_america_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = south_america_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = south_america_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = south_america_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = south_america_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = south_america_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_central_america_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = central_america_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = central_america_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = central_america_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = central_america_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = central_america_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = central_america_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_andes_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = andes_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = andes_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = andes_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = andes_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = andes_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = andes_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_north_america_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = north_america_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = north_america_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = north_america_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = north_america_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = north_america_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = north_america_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_near_east_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = near_east_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = near_east_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = near_east_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = near_east_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = near_east_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = near_east_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_eastern_europe_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = eastern_europe_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = eastern_europe_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = eastern_europe_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = eastern_europe_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = eastern_europe_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = eastern_europe_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_europe_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = europe_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = europe_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = europe_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = europe_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = europe_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = europe_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_africa_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = africa_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = africa_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = africa_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = africa_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = africa_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = africa_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_southern_africa_superregion }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = southern_africa_superregion limit = { autocolonize_province_is_colonizable development = 10 } } }
+			random_province = { superregion = southern_africa_superregion limit = { autocolonize_province_is_colonizable development = 10 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				any_province = { superregion = southern_africa_superregion limit = { autocolonize_province_is_colonizable development = 5 } } }
+			random_province = { superregion = southern_africa_superregion limit = { autocolonize_province_is_colonizable development = 5 } create_colony = 200 }
+		}
+		else_if = {
+			limit = { any_province = { superregion = southern_africa_superregion limit = { autocolonize_province_is_colonizable } } }
+			random_province = { superregion = southern_africa_superregion limit = { autocolonize_province_is_colonizable } create_colony = 200 }
+		}
+		else = {
+			# 该 superregion 已无可殖民空地 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.3 }
+		}
+	}
+}
+
+autocolonize_colonize_trade_node = {
+	# 按当前贸易节点目标殖民一个可殖民成员省（进入 loc 省 scope → random member）
+	if = {
+		limit = { has_country_flag = autocolonize_target_brazil }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1531 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1531 } } } } }
+			1531 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1531 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1531 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1531 } } } } }
+			1531 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1531 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1531 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1531 } } } } }
+			1531 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1531 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_laplata }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1536 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1536 } } } } }
+			1536 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1536 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1536 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1536 } } } } }
+			1536 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1536 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1536 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1536 } } } } }
+			1536 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1536 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_patagonia }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				2868 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 2868 } } } } }
+			2868 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 2868 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				2868 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 2868 } } } } }
+			2868 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 2868 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 2868 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 2868 } } } } }
+			2868 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 2868 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_amazonas_node }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				2935 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 2935 } } } } }
+			2935 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 2935 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				2935 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 2935 } } } } }
+			2935 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 2935 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 2935 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 2935 } } } } }
+			2935 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 2935 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_cuiaba }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				800 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 800 } } } } }
+			800 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 800 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				800 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 800 } } } } }
+			800 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 800 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 800 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 800 } } } } }
+			800 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 800 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_lima }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				809 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 809 } } } } }
+			809 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 809 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				809 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 809 } } } } }
+			809 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 809 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 809 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 809 } } } } }
+			809 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 809 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_mexico }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1551 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1551 } } } } }
+			1551 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1551 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1551 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1551 } } } } }
+			1551 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1551 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1551 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1551 } } } } }
+			1551 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1551 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_california }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				2021 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 2021 } } } } }
+			2021 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 2021 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				2021 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 2021 } } } } }
+			2021 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 2021 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 2021 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 2021 } } } } }
+			2021 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 2021 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_rio_grande }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				2499 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 2499 } } } } }
+			2499 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 2499 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				2499 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 2499 } } } } }
+			2499 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 2499 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 2499 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 2499 } } } } }
+			2499 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 2499 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_ohio }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				2526 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 2526 } } } } }
+			2526 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 2526 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				2526 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 2526 } } } } }
+			2526 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 2526 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 2526 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 2526 } } } } }
+			2526 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 2526 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_mississippi_river }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1507 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1507 } } } } }
+			1507 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1507 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1507 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1507 } } } } }
+			1507 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1507 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1507 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1507 } } } } }
+			1507 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1507 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_chesapeake_bay }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1500 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1500 } } } } }
+			1500 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1500 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1500 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1500 } } } } }
+			1500 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1500 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1500 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1500 } } } } }
+			1500 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1500 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_carribean_trade }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1516 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1516 } } } } }
+			1516 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1516 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1516 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1516 } } } } }
+			1516 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1516 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1516 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1516 } } } } }
+			1516 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1516 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_panama }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				835 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 835 } } } } }
+			835 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 835 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				835 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 835 } } } } }
+			835 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 835 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 835 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 835 } } } } }
+			835 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 835 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_st_lawrence }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1490 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1490 } } } } }
+			1490 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1490 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1490 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1490 } } } } }
+			1490 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1490 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1490 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1490 } } } } }
+			1490 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1490 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_james_bay }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1486 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1486 } } } } }
+			1486 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1486 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1486 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1486 } } } } }
+			1486 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1486 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1486 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1486 } } } } }
+			1486 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1486 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_australia }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1411 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1411 } } } } }
+			1411 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1411 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1411 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1411 } } } } }
+			1411 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1411 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1411 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1411 } } } } }
+			1411 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1411 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_polynesia_node }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1997 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1997 } } } } }
+			1997 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1997 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1997 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1997 } } } } }
+			1997 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1997 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1997 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1997 } } } } }
+			1997 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1997 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_cape_of_good_hope }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1460 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1460 } } } } }
+			1460 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1460 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1460 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1460 } } } } }
+			1460 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1460 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1460 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1460 } } } } }
+			1460 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1460 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_african_great_lakes }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				4064 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 4064 } } } } }
+			4064 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 4064 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				4064 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 4064 } } } } }
+			4064 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 4064 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 4064 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 4064 } } } } }
+			4064 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 4064 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_ivory_coast }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1466 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1466 } } } } }
+			1466 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1466 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1466 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1466 } } } } }
+			1466 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1466 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1466 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1466 } } } } }
+			1466 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1466 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_zambezi }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1191 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1191 } } } } }
+			1191 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1191 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1191 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1191 } } } } }
+			1191 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1191 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1191 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1191 } } } } }
+			1191 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1191 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_gulf_of_aden }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				4346 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 4346 } } } } }
+			4346 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 4346 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				4346 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 4346 } } } } }
+			4346 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 4346 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 4346 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 4346 } } } } }
+			4346 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 4346 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_the_moluccas }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1357 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1357 } } } } }
+			1357 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1357 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1357 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1357 } } } } }
+			1357 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1357 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1357 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1357 } } } } }
+			1357 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1357 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_malacca }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1361 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1361 } } } } }
+			1361 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1361 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1361 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1361 } } } } }
+			1361 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1361 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1361 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1361 } } } } }
+			1361 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1361 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_siberia }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1064 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1064 } } } } }
+			1064 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1064 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1064 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1064 } } } } }
+			1064 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1064 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1064 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1064 } } } } }
+			1064 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1064 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_girin }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				730 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 730 } } } } }
+			730 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 730 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				730 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 730 } } } } }
+			730 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 730 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 730 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 730 } } } } }
+			730 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 730 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_philippines }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1397 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1397 } } } } }
+			1397 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1397 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1397 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1397 } } } } }
+			1397 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1397 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1397 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1397 } } } } }
+			1397 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1397 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_canton }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1371 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1371 } } } } }
+			1371 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1371 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1371 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1371 } } } } }
+			1371 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1371 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1371 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1371 } } } } }
+			1371 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1371 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_hangzhou }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				684 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 684 } } } } }
+			684 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 684 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				684 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 684 } } } } }
+			684 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 684 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 684 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 684 } } } } }
+			684 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 684 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+	if = {
+		limit = { has_country_flag = autocolonize_target_gulf_of_siam }
+		if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1365 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1365 } } } } }
+			1365 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 10 NOT = { province_id = 1365 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { has_country_flag = autocolonize_sort_development
+				1365 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1365 } } } } }
+			1365 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable development = 5 NOT = { province_id = 1365 } } create_colony = 200 } }
+		}
+		else_if = {
+			limit = { 1365 = { any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1365 } } } } }
+			1365 = { random_trade_node_member_province = { limit = { autocolonize_province_is_colonizable NOT = { province_id = 1365 } } create_colony = 200 } }
+		}
+		else = {
+			# 该节点已无可殖民空土 → 清除目标并弹续选
+			autocolonize_clear_target
+			country_event = { id = autocolonize.4 }
+		}
+	}
+}

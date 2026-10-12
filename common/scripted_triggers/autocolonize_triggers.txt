@@ -1,0 +1,23 @@
+# scripted triggers 定义 — autocolonize mod T3（标识符与 DESIGN §5 一致，禁改）
+
+autocolonize_province_is_colonizable = {
+	# province scope：该省是"可被本国殖民的无主空地"（三件套 + 已发现）
+	is_empty = yes
+	is_wasteland = no
+	is_colony = no
+	has_discovered = ROOT
+}
+
+autocolonize_superregion_has_colonizable = {
+	# country scope，入参 $TARGET$ = superregion 作用域：该 superregion 是否还有可殖民省
+	$TARGET$ = {
+		any_province = { limit = { autocolonize_province_is_colonizable } }
+	}
+}
+
+autocolonize_trade_node_has_colonizable = {
+	# country scope，入参 $TARGET$ = 节点 location 省 id 作用域：该节点是否还有可殖民成员省
+	$TARGET$ = {
+		any_trade_node_member_province = { limit = { autocolonize_province_is_colonizable } }
+	}
+}

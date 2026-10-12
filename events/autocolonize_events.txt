@@ -1,0 +1,451 @@
+namespace = autocolonize
+
+country_event = {
+	id = autocolonize.1
+	title = autocolonize.1.title
+	desc = autocolonize.1.desc
+	is_triggered_only = yes
+	trigger = {
+		ai = no
+		has_country_flag = autocolonize_active
+	}
+	option = {
+		name = autocolonize.1.a
+		custom_tooltip = autocolonize_tooltip_active
+		set_country_flag = autocolonize_mode_continent
+		clr_country_flag = autocolonize_mode_trade_node
+		clr_country_flag = autocolonize_sort_distance
+		clr_country_flag = autocolonize_sort_development
+		country_event = { id = autocolonize.2 }
+	}
+
+	option = {
+		name = autocolonize.1.b
+		custom_tooltip = autocolonize_tooltip_active
+		set_country_flag = autocolonize_mode_trade_node
+		clr_country_flag = autocolonize_mode_continent
+		clr_country_flag = autocolonize_sort_distance
+		clr_country_flag = autocolonize_sort_development
+		country_event = { id = autocolonize.2 }
+	}
+
+	option = {
+		name = autocolonize.1.c
+		autocolonize_reset_all
+	}
+
+}
+
+country_event = {
+	id = autocolonize.2
+	title = autocolonize.2.title
+	desc = autocolonize.2.desc
+	is_triggered_only = yes
+	trigger = {
+		ai = no
+		has_country_flag = autocolonize_active
+	}
+	option = {
+		name = autocolonize.2.a
+		custom_tooltip = autocolonize_tooltip_active
+		set_country_flag = autocolonize_sort_distance
+		clr_country_flag = autocolonize_sort_development
+		if = { limit = { has_country_flag = autocolonize_mode_continent } country_event = { id = autocolonize.3 } }
+		if = { limit = { has_country_flag = autocolonize_mode_trade_node } country_event = { id = autocolonize.4 } }
+	}
+
+	option = {
+		name = autocolonize.2.b
+		custom_tooltip = autocolonize_tooltip_active
+		set_country_flag = autocolonize_sort_development
+		clr_country_flag = autocolonize_sort_distance
+		if = { limit = { has_country_flag = autocolonize_mode_continent } country_event = { id = autocolonize.3 } }
+		if = { limit = { has_country_flag = autocolonize_mode_trade_node } country_event = { id = autocolonize.4 } }
+	}
+
+	option = {
+		name = autocolonize.2.c
+		autocolonize_reset_all
+	}
+
+}
+
+country_event = {
+	id = autocolonize.3
+	title = autocolonize.3.title
+	desc = autocolonize.3.desc
+	is_triggered_only = yes
+	trigger = {
+		ai = no
+		has_country_flag = autocolonize_active
+		has_country_flag = autocolonize_mode_continent
+	}
+	option = {
+		name = autocolonize_target_india_superregion
+		trigger = { any_province = { superregion = india_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_india_superregion
+	}
+
+	option = {
+		name = autocolonize_target_east_indies_superregion
+		trigger = { any_province = { superregion = east_indies_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_east_indies_superregion
+	}
+
+	option = {
+		name = autocolonize_target_oceania_superregion
+		trigger = { any_province = { superregion = oceania_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_oceania_superregion
+	}
+
+	option = {
+		name = autocolonize_target_china_superregion
+		trigger = { any_province = { superregion = china_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_china_superregion
+	}
+
+	option = {
+		name = autocolonize_target_far_east_superregion
+		trigger = { any_province = { superregion = far_east_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_far_east_superregion
+	}
+
+	option = {
+		name = autocolonize_target_tartary_superregion
+		trigger = { any_province = { superregion = tartary_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_tartary_superregion
+	}
+
+	option = {
+		name = autocolonize_target_persia_superregion
+		trigger = { any_province = { superregion = persia_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_persia_superregion
+	}
+
+	option = {
+		name = autocolonize_target_south_america_superregion
+		trigger = { any_province = { superregion = south_america_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_south_america_superregion
+	}
+
+	option = {
+		name = autocolonize_target_central_america_superregion
+		trigger = { any_province = { superregion = central_america_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_central_america_superregion
+	}
+
+	option = {
+		name = autocolonize_target_andes_superregion
+		trigger = { any_province = { superregion = andes_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_andes_superregion
+	}
+
+	option = {
+		name = autocolonize_target_north_america_superregion
+		trigger = { any_province = { superregion = north_america_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_north_america_superregion
+	}
+
+	option = {
+		name = autocolonize_target_near_east_superregion
+		trigger = { any_province = { superregion = near_east_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_near_east_superregion
+	}
+
+	option = {
+		name = autocolonize_target_eastern_europe_superregion
+		trigger = { any_province = { superregion = eastern_europe_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_eastern_europe_superregion
+	}
+
+	option = {
+		name = autocolonize_target_europe_superregion
+		trigger = { any_province = { superregion = europe_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_europe_superregion
+	}
+
+	option = {
+		name = autocolonize_target_africa_superregion
+		trigger = { any_province = { superregion = africa_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_africa_superregion
+	}
+
+	option = {
+		name = autocolonize_target_southern_africa_superregion
+		trigger = { any_province = { superregion = southern_africa_superregion limit = { autocolonize_province_is_colonizable } } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_southern_africa_superregion
+	}
+
+	option = {
+		name = autocolonize.3.cancel
+		autocolonize_reset_all
+	}
+
+}
+
+country_event = {
+	id = autocolonize.4
+	title = autocolonize.4.title
+	desc = autocolonize.4.desc
+	is_triggered_only = yes
+	trigger = {
+		ai = no
+		has_country_flag = autocolonize_active
+		has_country_flag = autocolonize_mode_trade_node
+	}
+	option = {
+		name = autocolonize_target_brazil
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1531 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_brazil
+	}
+
+	option = {
+		name = autocolonize_target_laplata
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1536 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_laplata
+	}
+
+	option = {
+		name = autocolonize_target_patagonia
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 2868 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_patagonia
+	}
+
+	option = {
+		name = autocolonize_target_amazonas_node
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 2935 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_amazonas_node
+	}
+
+	option = {
+		name = autocolonize_target_cuiaba
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 800 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_cuiaba
+	}
+
+	option = {
+		name = autocolonize_target_lima
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 809 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_lima
+	}
+
+	option = {
+		name = autocolonize_target_mexico
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1551 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_mexico
+	}
+
+	option = {
+		name = autocolonize_target_california
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 2021 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_california
+	}
+
+	option = {
+		name = autocolonize_target_rio_grande
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 2499 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_rio_grande
+	}
+
+	option = {
+		name = autocolonize_target_ohio
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 2526 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_ohio
+	}
+
+	option = {
+		name = autocolonize_target_mississippi_river
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1507 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_mississippi_river
+	}
+
+	option = {
+		name = autocolonize_target_chesapeake_bay
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1500 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_chesapeake_bay
+	}
+
+	option = {
+		name = autocolonize_target_carribean_trade
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1516 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_carribean_trade
+	}
+
+	option = {
+		name = autocolonize_target_panama
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 835 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_panama
+	}
+
+	option = {
+		name = autocolonize_target_st_lawrence
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1490 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_st_lawrence
+	}
+
+	option = {
+		name = autocolonize_target_james_bay
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1486 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_james_bay
+	}
+
+	option = {
+		name = autocolonize_target_australia
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1411 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_australia
+	}
+
+	option = {
+		name = autocolonize_target_polynesia_node
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1997 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_polynesia_node
+	}
+
+	option = {
+		name = autocolonize_target_cape_of_good_hope
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1460 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_cape_of_good_hope
+	}
+
+	option = {
+		name = autocolonize_target_african_great_lakes
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 4064 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_african_great_lakes
+	}
+
+	option = {
+		name = autocolonize_target_ivory_coast
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1466 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_ivory_coast
+	}
+
+	option = {
+		name = autocolonize_target_zambezi
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1191 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_zambezi
+	}
+
+	option = {
+		name = autocolonize_target_gulf_of_aden
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 4346 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_gulf_of_aden
+	}
+
+	option = {
+		name = autocolonize_target_the_moluccas
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1357 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_the_moluccas
+	}
+
+	option = {
+		name = autocolonize_target_malacca
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1361 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_malacca
+	}
+
+	option = {
+		name = autocolonize_target_siberia
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1064 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_siberia
+	}
+
+	option = {
+		name = autocolonize_target_girin
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 730 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_girin
+	}
+
+	option = {
+		name = autocolonize_target_philippines
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1397 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_philippines
+	}
+
+	option = {
+		name = autocolonize_target_canton
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1371 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_canton
+	}
+
+	option = {
+		name = autocolonize_target_hangzhou
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 684 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_hangzhou
+	}
+
+	option = {
+		name = autocolonize_target_gulf_of_siam
+		trigger = { autocolonize_trade_node_has_colonizable = { $TARGET$ = 1365 } }
+		autocolonize_clear_target
+		set_country_flag = autocolonize_target_gulf_of_siam
+	}
+
+	option = {
+		name = autocolonize.4.cancel
+		autocolonize_reset_all
+	}
+
+}
+
+country_event = {
+	id = autocolonize.5
+	title = autocolonize.5.title
+	desc = autocolonize.5.desc
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		ai = no
+		has_country_flag = autocolonize_active
+	}
+	option = {
+		name = autocolonize.5.a
+		autocolonize_run
+	}
+
+}
